@@ -1,3 +1,4 @@
+from tabulate import tabulate
 import datetime
 
 class Event:
@@ -30,9 +31,17 @@ def display_events(events):
         return
 
     events_sorted = sorted(events, key=lambda x: (x.date, x.time))
-    print("All Events:")
+
+    # Create table headers
+    headers = ["Title", "Description", "Time"]
+
+    # Create table data
+    table_data = []
     for event in events_sorted:
-        print_event(event)
+        table_data.append([f"**{event.title.upper()}**", event.description, event.time.strftime("%H:%M")])
+
+    # Print table
+    print(tabulate(table_data, headers=headers, tablefmt="pipe"))
 
 def print_event(event):
     print(f"Title: {event.title}")
